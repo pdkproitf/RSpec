@@ -1,0 +1,19 @@
+current directory: /home/pdkpro/Desktop/RubyBasic/Test/football/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+/home/pdkpro/.rvm/rubies/ruby-2.3.1/bin/ruby -r ./siteconf20160627-9347-3ojenf.rb extconf.rb
+creating Makefile
+
+current directory: /home/pdkpro/Desktop/RubyBasic/Test/football/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+make "DESTDIR=" clean
+
+current directory: /home/pdkpro/Desktop/RubyBasic/Test/football/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+make "DESTDIR="
+compiling wrapper.c
+compiling crypt.c
+compiling bcrypt_ext.c
+compiling crypt_gensalt.c
+compiling crypt_blowfish.c
+linking shared-object bcrypt_ext.so
+
+current directory: /home/pdkpro/Desktop/RubyBasic/Test/football/vendor/bundle/ruby/2.3.0/gems/bcrypt-3.1.11/ext/mri
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bcrypt_ext.so ./.gem.20160627-9347-a41gyx

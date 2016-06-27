@@ -13,10 +13,9 @@ RSpec.describe Player, type: :model do
     it { should validate_presence_of :name }
     it { should validate_numericality_of(:shirt_number_integer).only_integer }
     it { should validate_numericality_of(:shirt_number_integer).is_greater_than_or_equal_to(1) }
-
   end
 
-  describe "accosiation" do
+  describe "association" do
     it { should belong_to(:team) }
   end
 

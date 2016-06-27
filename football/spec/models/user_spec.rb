@@ -1,33 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe :User, type: :model do
+RSpec.describe :User do
 
   before(:all) do
       @user = FactoryGirl.build(:user)
     end
   subject { @user }
 
-  describe "validate email" do 
+  it { @user.should_not be_nil }
 
-    it { @user.should_not be_nil }
-  	it { should validate_presence_of :email}
-
+  describe "validate email" do
+    it { @user.email.should_not be_nil }
   end
 
-  describe "validate smartphone" do 
-    it { should validate_numericality_of(:smartphone).only_integer }
-  end
+  it { should validate_numericality_of(:smartphone).only_integer }
 
   describe "validate name" do
     it { should validate_presence_of :name }
     it { should validate_length_of :name }
   end
 
+  describe "presence " do
+      [:name,:email].each do |attribute|
+        it { is_expected.to validate_presence_of(attribute) }
+      end
+  end
+
   describe "validate password" do
-    it { should validate_presence_of :password }
     it { should validate_confirmation_of :password }
     it { should validate_length_of :password }
-    # it { should have_secure_password }   ********** chua lam dc 
+    it { should have_secure_password }
   end
 
 end
