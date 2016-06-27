@@ -11,6 +11,8 @@ RSpec.describe :User do
 
   describe "validate email" do
     it { @user.email.should_not be_nil }
+    it { should allow_value("email@addresse.foo").for(:email) }
+    it { should_not allow_value("foo").for(:email) }
   end
 
   it { should validate_numericality_of(:smartphone).only_integer }
