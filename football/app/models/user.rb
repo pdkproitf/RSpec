@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i },
                     presence: true,
-                    uniqueness: { message: "alrealy exits" },
+                    uniqueness: true,
                     allow_nil: false
   validates_email_format_of :email, :message => 'is not looking good' # exactly
   #just need only this line for email test because it use
@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: { minimum:  8 }
 
   has_secure_password
-  validates :password, presence: true, confirmation: true,length: { minimum: 8 }
+  validates :password, presence: true, confirmation: true,length: { minimum: 8 ,
+                                                                    maximum: 25}
   validates_confirmation_of :password
 end

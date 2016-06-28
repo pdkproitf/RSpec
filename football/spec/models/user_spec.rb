@@ -7,17 +7,20 @@ RSpec.describe :User do
     end
   subject { @user }
 
-  it { @user.should_not be_nil }
+  it { expect(@user).to be_truthy }#not nil not false
 
   describe "validate email" do
-    it { @user.email.should_not be_nil }
+    it { expect(@user.email).to be_truthy }
+    it { expect(@user).to allow_value("email@addresse.foo").for(:email) }
+    it { expect(@user).not_to allow_value("foo").for(:email) }
+    it { expect(@user).to validate_uniqueness_of(:email) }
   end
 
-  it { should validate_numericality_of(:smartphone).only_integer }
+  it { expect(@user).to validate_numericality_of(:smartphone).only_integer }
 
   describe "validate name" do
-    it { should validate_presence_of :name }
-    it { should validate_length_of :name }
+    it { expect(@user.name).to be_truthy }
+    it { expect(@user.name.size).to be >= 8 }
   end
 
   describe "presence " do
@@ -27,9 +30,9 @@ RSpec.describe :User do
   end
 
   describe "validate password" do
-    it { should validate_confirmation_of :password }
-    it { should validate_length_of :password }
-    it { should have_secure_password }
+    it { expect(@user).to validate_length_of(:password).is_at_least(8).is_at_most(25) }
+    it { expect(@user).to validate_confirmation_of(:password) }
+    it { is_expected.to have_secure_password }
   end
 
 end

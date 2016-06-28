@@ -15,7 +15,7 @@ RSpec.describe Team do
   end
 
   describe "acssociations" do
-    it { should have_many(:players) }
+    it { is_expected.to have_many(:players) }
   end
 
 end
