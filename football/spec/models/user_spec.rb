@@ -16,6 +16,15 @@ RSpec.describe :User do
     it { expect(@user).to validate_uniqueness_of(:email) }
   end
 
+  it "should be invalid for case false" do
+    addresses = %w[user@foo.com user_at_foo.org
+                    example.user@foo.foo@baz_baz.com foo@bar+baz.com]
+      addresses.each do |invalid_address|
+        @user.email = invalid_address
+        expect(@user).not_to be_valid
+      end
+  end
+
   it { expect(@user).to validate_numericality_of(:smartphone).only_integer }
 
   describe "validate name" do
