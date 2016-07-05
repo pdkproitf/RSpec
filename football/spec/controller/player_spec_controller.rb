@@ -8,11 +8,6 @@ RSpec.describe PlayersController, :type => :controller do
 
     it "renders the index template" do
       expect(subject).to render_template(:index)
-      # expect(subject).to render_template("index")
-      # expect(subject).to render_template("gadgets/index")
-    end
-    it "do not renders different template" do
-      expect(subject).to_not render_template(:show)
     end
   end
 #*******************************************************************************
@@ -23,10 +18,6 @@ RSpec.describe PlayersController, :type => :controller do
       expect(subject).to render_template(:show)
       expect(subject).to render_template("show")
     end
-
-    it "do not render different template" do
-      expect(subject).to_not render_template(:index)
-    end
   end
 #*******************************************************************************
   describe "GET #new" do
@@ -34,10 +25,6 @@ RSpec.describe PlayersController, :type => :controller do
 
     it "render the new template" do
       expect(subject).to render_template(:new)
-    end
-
-    it "do not render different template" do
-      expect(subject).to_not render_template(:create)
     end
   end
 #*******************************************************************************
@@ -48,20 +35,10 @@ RSpec.describe PlayersController, :type => :controller do
     it "render the edit template" do
       expect(subject).to render_template(:edit)
     end
-
-    it "do not render different template" do
-      expect(subject).to_not render_template(:update)
-    end
   end
 #*******************************************************************************
   describe "POST #create" do
     player = FactoryGirl.build(:player)
-    # subject { post :create,
-    #                   :player => {
-    #                       :name => player.name,
-    #                       :shirt_number_integer => player.shirt_number_integer
-    #                   }
-    #  }
     let(:params) do
         {
             player: {
@@ -74,10 +51,6 @@ RSpec.describe PlayersController, :type => :controller do
     before do
         put :create, params
     end
-
-    # it "redirects to player_url(@player)" do
-    #   expect(subject).to redirect_to(player_url(assigns(:player)))
-    # end
 
     it "redirects_to :action => :show" do
       expect(subject).to redirect_to :action => :show,
