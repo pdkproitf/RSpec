@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe PlayersController, :type => :controller do
+  let(:player) { FactoryGirl.create(:player) }
 #*******************************************************************************
   describe "GET #index" do
     subject { get :index }
@@ -16,7 +17,6 @@ RSpec.describe PlayersController, :type => :controller do
   end
 #*******************************************************************************
   describe "GET #show" do
-    player = FactoryGirl.create(:player)
     subject { get :show, :id => player.to_param }
 
     it "render the show template" do
@@ -42,7 +42,7 @@ RSpec.describe PlayersController, :type => :controller do
   end
 #*******************************************************************************
   describe "GET #edit" do
-    player = FactoryGirl.create(:player)
+
     subject { get :edit, :id => player.id.to_param }
 
     it "render the edit template" do
@@ -56,16 +56,28 @@ RSpec.describe PlayersController, :type => :controller do
 #*******************************************************************************
   describe "POST #create" do
     player = FactoryGirl.build(:player)
-    subject { post :create,
-                      :player => {
-                          :name => player.name,
-                          :shirt_number_integer => player.shirt_number_integer
-                      }
+    # subject { post :create,
+    #                   :player => {
+    #                       :name => player.name,
+    #                       :shirt_number_integer => player.shirt_number_integer
+    #                   }
+    #  }
+    let(:params) do
+        {
+            player: {
+                name: player.name,
+                shirt_number_integer: player.shirt_number_integer
             }
-
-    it "redirects to player_url(@player)" do
-      expect(subject).to redirect_to(player_url(assigns(:player)))
+        }
     end
+
+    before do
+        put :create, params
+    end
+
+    # it "redirects to player_url(@player)" do
+    #   expect(subject).to redirect_to(player_url(assigns(:player)))
+    # end
 
     it "redirects_to :action => :show" do
       expect(subject).to redirect_to :action => :show,
@@ -74,29 +86,33 @@ RSpec.describe PlayersController, :type => :controller do
 
   end
 #*******************************************************************************
-  describe "PUT #update" do
-    player = FactoryGirl.create(:player)
-    subject { put :update,
-                      :id => player.to_param,
-                      :player => {
-                          :name => player.name,
-                          :shirt_number_integer => player.shirt_number_integer
-                      }
+  describe "PUT update" do
+    let(:expected_player) {  assigns(:player) }
+    let(:player) { FactoryGirl.create(:player) }
+    let(:params) do
+        {
+            id: player.id,
+            player: {
+                name: player.name,
+                shirt_number_integer: player.shirt_number_integer
             }
-
-    it "redirects to player_url(@player)" do
-      expect(subject).to redirect_to(player_url(assigns(:player)))
+        }
     end
 
-    it "redirects_to :action => :show" do
-      expect(subject).to redirect_to :action => :show,
-                                     :id => assigns(:player).id
+    before do
+        put :update, params
     end
 
-  end
+    it 'redirects to player detail page' do
+      expect(response).to redirect_to(player_path(player))
+    end
+
+    it 'assigns correct variables' do
+      expect(expected_player).to eq player
+    end
+end
 #*******************************************************************************
   describe "DELETE #destroy" do
-    player = FactoryGirl.create(:player)
     subject { delete :destroy,
                       :id => player.to_param
             }
